@@ -1,19 +1,22 @@
 class yeoman {
-	$yeomanPackages = [ "curl", "git", "nodejs", "npm", "rubygems", "libjpeg-turbo-progs", "optipng", "phantomjs", "python-software-properties" ]
-  		package { $yeomanPackages:
+	$yeomanPackages = [ "curl", "git", "rubygems", "libjpeg-turbo-progs", "optipng", "phantomjs", "python-software-properties" ]
+  	package { $yeomanPackages:
     	ensure => "installed",
     	require => Exec['apt-get update'],
   	}
     
   	exec { 'install compass using npm':
-    	command => 'npm install compass -g',
+    	command => 'npm install -g compass',
     	require => Package["npm"],
   	}
-    exec {
-        "install yeoman":
-            command => "curl -L get.yeoman.io | bash",
-			require => Class["nodejs"]
+  	exec {
+        "install yeoman using npm":
+            command => "npm install -g yeoman",
+			require => Package["npm"],
     }
-    
-  	
+    exec {
+        "checking yeoman":
+            command => "curl -L get.yeoman.io | bash",
+			require => Class["nodejs"],
+    }
 }
