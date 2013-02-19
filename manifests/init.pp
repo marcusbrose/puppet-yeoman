@@ -11,7 +11,7 @@ class yeoman {
   	}
   	exec {
         "install yeoman using npm":
-            command => "npm install -g yeoman",
+            command => "npm install -g yo grunt-cli bower",
 			require => Package["npm"],
     }
     exec {
